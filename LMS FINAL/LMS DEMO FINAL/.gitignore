@@ -1,0 +1,12 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+public/uploads/course-banners/*
+!public/uploads/course-banners/.gitkeep
+public/uploads/placements/*
+!public/uploads/placements/.gitkeep

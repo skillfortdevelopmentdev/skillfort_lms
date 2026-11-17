@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Remix: SkillFort LMS Platform",
+  "description": "A premium enterprise LMS platform with multi-role dashboards, Vimeo course system, video progress auto-saves, dynamic certificate generation, and coupon-integrated Razorpay checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

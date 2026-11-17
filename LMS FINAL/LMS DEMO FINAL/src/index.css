@@ -1,0 +1,529 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select,
+optgroup {
+  font-family: 'Poppins', sans-serif;
+}
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-mono: "Poppins", sans-serif;
+  
+  --color-brand-primary: #F89A15;
+  --color-brand-primary-light: #fba93c;
+  --color-brand-primary-dark: #cc7807;
+  --color-brand-dark: #000000;
+  --color-slate-950: #0a0f1d;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+}
+
+/* --- LIGHT/DARK Mode Variable overrides --- */
+:root {
+  --bg-app: #f1f5f9;       /* Light, cool slate gray for panel layouts */
+  --bg-nav: #ffffff;       /* Pure white navbar background */
+  --bg-card: #ffffff;      /* Pure white card backgrounds */
+  --bg-card-hover: #e2e8f0; /* Crisp interactive hover state */
+  --bg-deep: #f8fafc;      /* Subtle nestled block layouts */
+  --border-app: #cbd5e1;   /* High contrast slate borders */
+  --border-card: #cbd5e1;  /* High contrast slate borders for cards */
+  --text-primary: #0f172a;  /* Deep high contrast charcoal text */
+  --text-secondary: #334155; /* Solid gray subheadings and details */
+  --text-muted: #475569;     /* Legible dark slate details */
+  --bg-input: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.07);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+:root.dark, .dark {
+  --bg-app: #000000;
+  --bg-nav: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --bg-deep: #0a0a0a;
+  --border-app: #222222;
+  --border-card: #222222;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --bg-input: #000000;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+/* Force light styling by default when body does not have dark class */
+html:not(.dark) body {
+  background-color: var(--bg-app) !important;
+  color: var(--text-primary) !important;
+}
+
+html:not(.dark) {
+  /* Dynamic Background mapping */
+  --bg-black: var(--bg-app);
+  --bg-\[\#0A0A0A\]: var(--bg-nav);
+  --bg-\[\#0a0a0a\]: var(--bg-nav);
+  --bg-\[\#111111\]: var(--bg-card);
+  --border-\[\#222222\]: var(--border-app);
+  --text-white: var(--text-primary);
+  --text-gray-400: var(--text-secondary);
+  --text-gray-300: var(--text-secondary);
+}
+
+/* Overwrite utilities for robust default light theme renders */
+html:not(.dark) .min-h-screen,
+html:not(.dark) .bg-black,
+html:not(.dark) .bg-bg-main {
+  background-color: var(--bg-app) !important;
+  color: var(--text-primary) !important;
+}
+
+html:not(.dark) .bg-\[\#0A0A0A\],
+html:not(.dark) .bg-\[\#0a0a0a\] {
+  background-color: var(--bg-nav) !important;
+}
+
+html:not(.dark) .bg-\[\#111111\] {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-card) !important;
+}
+
+/* Fix sidebar active buttons merging with the sidebar background */
+html:not(.dark) aside button.bg-\[\#111111\] {
+  background-color: var(--bg-card-hover) !important;
+  border-color: var(--border-app) !important;
+}
+
+/* Fix pitch-black gradients remaining black under light theme */
+html:not(.dark) .bg-gradient-to-br.from-\[\#111111\].to-black,
+html:not(.dark) .bg-gradient-to-tr.from-\[\#111111\].to-black,
+html:not(.dark) .bg-gradient-to-br.from-\[\#111111\],
+html:not(.dark) .bg-gradient-to-tr.from-\[\#111111\],
+html:not(.dark) .from-\[\#111111\] {
+  background-image: none !important;
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-card) !important;
+}
+
+/* Fix nested dark panels inside dark blocks under light theme */
+html:not(.dark) .bg-neutral-950\/40,
+html:not(.dark) .bg-neutral-950\/20,
+html:not(.dark) .bg-neutral-950,
+html:not(.dark) .bg-neutral-900,
+html:not(.dark) .bg-neutral-900\/40,
+html:not(.dark) .bg-neutral-900\/60,
+html:not(.dark) .bg-neutral-900\/80,
+html:not(.dark) .bg-neutral-800,
+html:not(.dark) .bg-zinc-800,
+html:not(.dark) .bg-zinc-900,
+html:not(.dark) .bg-zinc-950,
+html:not(.dark) .bg-\[\#222222\],
+html:not(.dark) .bg-\[\#222222\]\/85,
+html:not(.dark) .bg-black\/65,
+html:not(.dark) .bg-black\/60,
+html:not(.dark) .bg-black\/50,
+html:not(.dark) .bg-black\/45,
+html:not(.dark) .bg-black\/40,
+html:not(.dark) .bg-black\/30,
+html:not(.dark) .bg-black\/20,
+html:not(.dark) .bg-black\/10,
+html:not(.dark) .bg-slate-900,
+html:not(.dark) .bg-\[\#111111\]\/10 {
+  background-color: var(--bg-deep) !important;
+  border-color: var(--border-app) !important;
+}
+
+/* Fix item list hover states merging colors and becoming unreadable */
+html:not(.dark) .hover\:bg-black\/50:hover,
+html:not(.dark) .hover\:bg-black\/30:hover {
+  background-color: var(--bg-card-hover) !important;
+}
+
+/* Add robust broad spectrum text color accessibility mappings for Light Mode */
+html:not(.dark) .text-white,
+html:not(.dark) .text-zinc-100,
+html:not(.dark) .text-zinc-200,
+html:not(.dark) .text-zinc-300,
+html:not(.dark) .text-neutral-100,
+html:not(.dark) .text-neutral-200,
+html:not(.dark) .text-neutral-300,
+html:not(.dark) .text-slate-100,
+html:not(.dark) .text-slate-200,
+html:not(.dark) .text-slate-300 {
+  color: var(--text-primary) !important;
+}
+
+html:not(.dark) .text-gray-400,
+html:not(.dark) .text-gray-300,
+html:not(.dark) .text-slate-300,
+html:not(.dark) .text-slate-400,
+html:not(.dark) .text-neutral-400,
+html:not(.dark) .text-zinc-400 {
+  color: var(--text-secondary) !important;
+}
+
+html:not(.dark) .text-gray-500,
+html:not(.dark) .text-neutral-500,
+html:not(.dark) .text-zinc-500,
+html:not(.dark) .text-slate-500 {
+  color: #475569 !important; /* Ensure secondary labels are always highly legible */
+}
+
+/* Boost status message and badge contrasts under White Theme */
+html:not(.dark) .text-emerald-400,
+html:not(.dark) .text-emerald-500 {
+  color: #047857 !important; /* Emerald-700 solid dark green for success text */
+}
+
+html:not(.dark) .bg-emerald-500\/10,
+html:not(.dark) .bg-emerald-500\/25,
+html:not(.dark) .bg-emerald-500\/20 {
+  background-color: #d1fae5 !important; /* Emerald-100 light solid green background */
+  border-color: #a7f3d0 !important; /* Emerald-200 border */
+}
+
+html:not(.dark) .text-rose-400,
+html:not(.dark) .text-rose-500 {
+  color: #be123c !important; /* Rose-700 solid deep red for alert text */
+}
+
+html:not(.dark) .bg-rose-500\/10,
+html:not(.dark) .bg-rose-500\/20 {
+  background-color: #ffe4e6 !important; /* Rose-100 light solid red background */
+  border-color: #fecdd3 !important; /* Rose-200 border */
+}
+
+html:not(.dark) .text-\[\#F89A15\],
+html:not(.dark) .text-brand-primary {
+  color: #ca6e00 !important; /* Elegant golden brand solid amber (WCAG compliant ratio) */
+}
+
+html:not(.dark) .bg-\[\#F89A15\]\/10,
+html:not(.dark) .bg-\[\#f89a15\]\/10,
+html:not(.dark) .bg-brand-primary\/10 {
+  background-color: #fef3c7 !important; /* Amber-100 light solid background */
+  border-color: #fde68a !important; /* Amber-200 border */
+}
+
+html:not(.dark) .bg-\[\#F89A15\],
+html:not(.dark) .bg-\[\#f89a15\],
+html:not(.dark) .bg-brand-primary {
+  background-color: #ca6e00 !important; /* Match background color to solid high-contrast brand color in light mode */
+  color: #ffffff !important; /* Content defaults to white */
+}
+
+/* Custom mapping for the dynamic clock badge */
+html:not(.dark) .bg-[\#111111]\/80 {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-card) !important;
+}
+
+.text-white-always,
+html:not(.dark) .text-white-always {
+  color: #ffffff !important;
+}
+
+/* Media player / Quiz container isolation to keep clean cinema dark theme looks strictly under dark theme */
+html.dark .keep-dark-scheme,
+html.dark .keep-dark-scheme .bg-black {
+  background-color: #0b0b0b !important;
+  color: #ffffff !important;
+}
+html.dark .keep-dark-scheme * {
+  color: #f3f4f6 !important;
+}
+
+/* Guard the specific background boxes inside keep-dark-scheme from being light-mode inverted */
+html.dark .keep-dark-scheme .bg-\[\#0A0A0A\],
+html.dark .keep-dark-scheme .bg-\[\#0a0a0a\] {
+  background-color: #0a0a0a !important;
+}
+
+html.dark .keep-dark-scheme .bg-\[\#111111\] {
+  background-color: #111111 !important;
+}
+
+html.dark .keep-dark-scheme .bg-\[\#111111\]\/80 {
+  background-color: rgba(17, 17, 17, 0.8) !important;
+}
+
+html.dark .keep-dark-scheme .bg-black\/95 {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+html.dark .keep-dark-scheme .bg-black\/45 {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark .keep-dark-scheme .bg-black\/55 {
+  background-color: rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark .keep-dark-scheme .bg-\[\#0a0a0a\]\/60 {
+  background-color: rgba(10, 10, 10, 0.60) !important;
+}
+
+/* Guard border outlines */
+html.dark .keep-dark-scheme .border-\[\#222222\] {
+  border-color: #222222 !important;
+}
+
+html.dark .keep-dark-scheme .border-neutral-800 {
+  border-color: #262626 !important;
+}
+
+/* Guard individual text accents inside keep-dark-scheme */
+html.dark .keep-dark-scheme .text-white {
+  color: #ffffff !important;
+}
+
+html.dark .keep-dark-scheme .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+html.dark .keep-dark-scheme .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+html.dark .keep-dark-scheme .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+html.dark .keep-dark-scheme .text-emerald-400 {
+  color: #34d399 !important;
+}
+
+html.dark .keep-dark-scheme .text-rose-400 {
+  color: #f87171 !important;
+}
+
+html.dark .keep-dark-scheme .text-\[\#F89A15\],
+html.dark .keep-dark-scheme .text-brand-primary {
+  color: #F89A15 !important;
+}
+
+/* Choice select cards and list components */
+.keep-dark-scheme .bg-\[\#F89A15\]\/10,
+html:not(.dark) .keep-dark-scheme .bg-\[\#F89A15\]\/10 {
+  background-color: rgba(248, 154, 21, 0.1) !important;
+  border-color: rgba(248, 154, 21, 0.25) !important;
+}
+
+.keep-dark-scheme .bg-emerald-500\/10,
+html:not(.dark) .keep-dark-scheme .bg-emerald-500\/10,
+.keep-dark-scheme .bg-emerald-600\/10,
+html:not(.dark) .keep-dark-scheme .bg-emerald-600\/10 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Guard interactive buttons from color merging */
+.keep-dark-scheme button,
+html:not(.dark) .keep-dark-scheme button {
+  color: inherit;
+}
+.keep-dark-scheme button *,
+html:not(.dark) .keep-dark-scheme button * {
+  color: inherit;
+}
+
+/* Ensure borders are highly visible and do not disappear or remain pitch black */
+html:not(.dark) .border-\[\#222222\],
+html:not(.dark) .border-\[\#222222\]\/60,
+html:not(.dark) .border-\[\#222222\]\/80,
+html:not(.dark) .border-neutral-800,
+html:not(.dark) .border-neutral-900,
+html:not(.dark) .border-zinc-800,
+html:not(.dark) .border-b-border-\[\#222222\],
+html:not(.dark) .border-b {
+  border-color: var(--border-app) !important;
+}
+
+html:not(.dark) .hover\:bg-\[\#111111\]:hover {
+  background-color: var(--bg-card-hover) !important;
+}
+
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-card) !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) .rounded-2xl.border,
+html:not(.dark) .rounded-xl.border {
+  box-shadow: var(--shadow-md) !important;
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-card) !important;
+}
+
+html:not(.dark) .gradient-text {
+  background: linear-gradient(135deg, #F89A15 0%, #000000 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Modals & Invoice */
+html:not(.dark) .fixed.inset-0.bg-black\/85,
+html:not(.dark) .fixed.inset-0.bg-black\/80 {
+  background-color: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+html:not(.dark) .bg-\[\#0A0A0A\].border,
+html:not(.dark) .bg-\[\#0a0a0a\].border,
+html:not(.dark) .bg-\[\#0A0A0A\],
+html:not(.dark) .bg-\[\#0a0a0a\] {
+  background-color: var(--bg-card) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+html:not(.dark) .invoice-modal,
+html:not(.dark) .certificate-modal {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Custom premium scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(248, 154, 21, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(248, 154, 21, 0.4);
+}
+
+/* Custom class styles */
+.gradient-text {
+  background: linear-gradient(135deg, #F89A15 0%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-dark {
+  background: linear-gradient(135deg, #F89A15 0%, #000000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Base custom interactive states */
+.active-ring {
+  box-shadow: 0 0 0 2px rgba(248, 154, 21, 0.3);
+}
+
+/* Custom animation classes */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.glow-ambient {
+  animation: pulseGlow 8s infinite ease-in-out;
+}
+
+@keyframes mncMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.mnc-marquee-track {
+  animation: mncMarquee 80s linear infinite;
+}
+
+.mnc-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.wall-success-marquee-track {
+  animation: mncMarquee 90s linear infinite;
+}
+
+.wall-success-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mnc-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .wall-success-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+}
+
+/* Make the entire date input open the calendar, not just the icon */
+.date-picker-full {
+  position: relative;
+}
+
+.date-picker-full::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-picker-full::-webkit-datetime-edit,
+.date-picker-full::-webkit-datetime-edit-fields-wrapper {
+  cursor: pointer;
+}
+
+/* Course content protection — hide protected lessons from print */
+@media print {
+  .content-protected-root,
+  .content-protected-root * {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+.content-protected-root {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
